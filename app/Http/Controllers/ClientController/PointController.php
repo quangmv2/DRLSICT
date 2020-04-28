@@ -64,13 +64,15 @@ class PointController extends ClientController
             return redirect()->route('getDot', ['id_dot' => $id_dot])->with('myErrors', "Sinh viên không tồn tại");
         }
 
-        $client = new Client();
-        $res = $client->request('GET', 'http://diemrenluyen.xyz/point/'.$id_student);
-        // $res = $client->request('GET', 'http://localhost:3000/api/point/'.$id_student);
-        $content = (object) $res->getBody();
-        $json = json_decode($content->getContents(), true);
+        // $client = new Client();
+        // $res = $client->request('GET', 'http://diemrenluyen.xyz/point/'.$id_student);
+        // // $res = $client->request('GET', 'http://localhost:3000/api/point/'.$id_student);
+        // $content = (object) $res->getBody();
+        // $json = json_decode($content->getContents(), true);
         
-        $point_study = $json['point'];
+        // $point_study = $json['point'];
+
+        $point_study = 0;
 
         $my_point = Point::where('id_dot', $id_dot)
         ->where('id_student', $id_student)
