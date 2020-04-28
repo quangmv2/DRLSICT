@@ -1,6 +1,6 @@
 # qldv
 Hệ Thống Quản Lý điểm rèn luyện<br/>
-Programing Language: PHP<br/>
+Programming Language: PHP<br/>
 Framework: Laravel<br/>
 Database: MySQL<br/>
 Demo: 
