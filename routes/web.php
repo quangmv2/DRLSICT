@@ -11,6 +11,8 @@
 |
 */
 use App\DiemDemo;
+use App\User;
+use App\Attendance;
 
 Route::get('/point/{id}', function ($id) {
     $diem = DiemDemo::where('id_student', $id)->get();
@@ -34,6 +36,11 @@ Auth::routes([
     'reset' => false, 
     'verify' => false, 
 ]);
+
+Route::get('users', function(){
+     $users = Attendance::all();
+     return count($users);
+});
 
 Route::get('logout', "LoginController@logout")->name('logout');
 

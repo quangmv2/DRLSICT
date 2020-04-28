@@ -19,7 +19,25 @@
                 <td>{{ \Carbon\Carbon::parse($value->time)->format('d-m-Y') }}</td>
                 <td> 
                     @php
-                        echo $value->status == 1 ? "Đã điểm danh": "Chưa điểm danh"
+                        $AR = App\Attendance::where('id_student', session('account')->id_student)->where('id_action', $value->id_action)->get();
+                        $action = App\ActionRelationshipClass::where('id_action', $value->id_action)->where('id_class', session('account')->id_class)->get();
+                        if (count($AR) < 1 || count($action) < 1) {
+                            echo "Không tham gia";
+                        } else {
+                            $AR = $AR[0];
+                            $action = $action->first();
+                            if ($action->confirm == 0) {
+                                echo "Chưa điểm danh";
+                            } else {
+                                 if ($AR->status == 0) {
+                                    echo "Vắng";
+                                } else {
+                                    echo "Đã tham gia - Đã điểm danh";
+                                }
+                            }
+                            
+                           
+                        }
                     @endphp 
                 </td>
                 <td> 

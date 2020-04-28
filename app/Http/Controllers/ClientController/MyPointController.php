@@ -23,6 +23,7 @@ class MyPointController extends ClientController
         $list = DotXetDiem::join('dot_xet_diem_rela_class', 'dot_xet_diem_rela_class.id_dot', '=', 'dot_xet_diem.id_dot_xet')
         ->where('id_class', $request->session()->get('account')->id_class)
         ->join('points', 'points.id_dot', '=' , 'dot_xet_diem.id_dot_xet')
+        ->where('showP', 1)
         ->where('id_student', $request->session()->get('account')->id_student)
         ->get();
         $tmp = DotXetDiem::join('dot_xet_diem_rela_class', 'dot_xet_diem_rela_class.id_dot', '=', 'dot_xet_diem.id_dot_xet')

@@ -29,7 +29,7 @@ class DotXetDiemController extends ClientController
         $class = $request->session()->get('account')->id_class;
 
         $list = DotXetDiem::join('dot_xet_diem_rela_class', 'dot_xet_diem_rela_class.id_dot', '=', 'dot_xet_diem.id_dot_xet')
-        ->where('id_class', $class)->orderby('nam_hoc')->select('dot_xet_diem.*')->orderby('hoc_ki')->get();
+        ->where('id_class', $class)->where('showP', 1)->orderby('nam_hoc')->select('dot_xet_diem.*')->orderby('hoc_ki')->get();
         foreach ($list as $index  => $value){
             $list[$index]['xuat_sac'] = Point::where('id_dot', $value->id_dot_xet)->where('total', '>=', 90)->count('total');
             $list[$index]['gioi'] = Point::where('id_dot', $value->id_dot_xet)->where('total', '>=', 80)->where('total','<', 90)->count('total');

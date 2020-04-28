@@ -217,6 +217,7 @@ class PointController extends ClientController
 
     public function downloadPointPDF(Request $request, $id_student, $id_dot)
     {
+        die();
         // PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
         $my_point = Point::where('id_dot', $id_dot)
         ->where('id_student', $id_student)

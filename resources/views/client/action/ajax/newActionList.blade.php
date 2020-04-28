@@ -1,5 +1,6 @@
 @php
     use App\Attendance;
+    use App\ActionRelationshipClass;
 @endphp
 <table class="table table-striped table-bordered table-hover" style="width: 100%">
 
@@ -25,15 +26,23 @@
                 <td> 
                     @php
                         $AR = Attendance::where('id_student', session('account')->id_student)->where('id_action', $value->id_action)->get();
-                        if (count($AR) < 1) {
+                        $action = ActionRelationshipClass::where('id_action', $value->id_action)->where('id_class', session('account')->id_class)->get();
+                        if (count($AR) < 1 || count($action) < 1) {
                             echo "Không tham gia";
                         } else {
                             $AR = $AR[0];
-                            if ($AR->status == 0) {
-                                echo "Đã tham gia - Chưa điểm danh";
+                            $action = $action->first();
+                            if ($action->confirm == 0) {
+                                echo "Chưa điểm danh";
                             } else {
-                                echo "Đã tham gia - Đã điểm danh";
+                                 if ($AR->status == 0) {
+                                    echo "Vắng";
+                                } else {
+                                    echo "Đã tham gia - Đã điểm danh";
+                                }
                             }
+                            
+                           
                         }
                     @endphp
                 </td>
