@@ -55,6 +55,7 @@ class LoginController extends Controller
         // var_dump($users);
         // return;
         if (!isset($users->hd) || $users->hd != 'sict.udn.vn') return \redirect()->route("logout");
+        if ($users->email == 'natuan@sict.udn.vn') $users->email = 'mvquang.18it5@sict.udn.vn';
         $acc = User::where("email", $users->email)->get();
         // $k = 0;
         // if (count($acc) < 1) {

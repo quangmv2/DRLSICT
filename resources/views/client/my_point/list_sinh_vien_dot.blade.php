@@ -18,24 +18,26 @@
 
 <script>
      function getDTB(id, masv, nambatdau, namketthuc, hocky) {
-        $.ajax({
-            url: 'http://diemrenluyen.xyz/diem_sv',
-            data: {
-                masv, 
-                nambatdau,
-                namketthuc,
-                hocky
-            },
-            success: (data) => {
-                if (isNaN(parseFloat(data))) {
-                    let rd = Math.random(1000);
-                    setTimeout(() => {
-                        getDTB(id, masv, nambatdau, namketthuc, hocky);
-                    }, rd + 1000);
+        setTimeout(() => {
+            $.ajax({
+                url: 'http://diemrenluyen.xyz/diem_sv',
+                data: {
+                    masv, 
+                    nambatdau,
+                    namketthuc,
+                    hocky
+                },
+                success: (data) => {
+                    if (isNaN(parseFloat(data))) {
+                        let rd = Math.random(1000);
+                        setTimeout(() => {
+                            getDTB(id, masv, nambatdau, namketthuc, hocky);
+                        }, rd + 10000);
+                    }
+                    else document.getElementById(id).innerHTML = data
                 }
-                else document.getElementById(id).innerHTML = data
-            }
-        });
+            });
+        }, Math.random(10000) + 5000);
      }
 </script>
 
@@ -58,8 +60,7 @@
                         <td>Điểm TB</td>
                         <td>Xếp loại<br/>(Tự đánh giá/Lớp đánh giá)</td>
                         <td>Ghi chú</td>
-                        <td>Tình trạng</td>
-                        <td>Tải về</td>
+                        {{-- <td>Tình trạng</td> --}}
                     </tr>
                 </thead>
 
@@ -67,24 +68,23 @@
                     @foreach ($students as $student)
                         <tr>
                             <td> {{ $student->id_student }} </td>
-                            <td style="text-align: left; width: 20%"><a href="{{ route('getDanhGia', ['id_dot' => $id_dot, 'id_detail'=> $student->id_point, 'name' => tenKhongDau( $student->first_name . " " . $student->last_name ),'id_student' => $student->id_student]) }}">{{ $student->first_name . " " . $student->last_name }}</a></td>
+                            <td style="text-align: left; width: 20%"><a href="">{{ $student->first_name . " " . $student->last_name }}</a></td>
                             <td> {{ $student->confirm == 0 ? "Chưa đánh giá" : "Đã đánh giá" }} </td>
-                            <td style="font-weight: bold"> {{ $student["my_point"] }}/{{ $student->total }} </td>
+                            <td style="font-weight: bold">{{ $student["my_point"] }}/{{ $student->total }} </td>
                             <td id="DTB{{$student->id_student}}">
                                 <div class="spinner-border text-warning" role="status">
                                     <span class="sr-only">Đang tải...</span>
                                   </div>
                             </td>
                             <td style="font-weight: bold"> {{ danhGia($student["my_point"]) }}/{{ danhGia($student->total) }} </td>
-                            <td><input type="text" class="form-control" id="{{ $student->id_student }}" value="{{$student->note}}"></td>
-                            <td><button type="button" class="
+                            <td>{{$student->note}}</td>
+                            {{-- <td><button type="button" class="
                                 @if ($student->status == 1)
                                     btn btn-success
                                 @else
                                     btn btn-danger
                                 @endif    
-                            " onclick="tinhTrang(this)"
-                            data-student="{{ $student->id_student }}"
+                            " disabled
                             >
                                 @if ($student->status == 1)
                                     Đang học
@@ -92,8 +92,7 @@
                                     Nghỉ học
                                 @endif
                             
-                            </button></td>
-                            <td><a href="{{ route('downloadPointPDF', ['id_student' => $student->id_student, 'id_dot' => $id_dot]) }}"><i class="fas fa-cloud-download-alt"></i></a>  </td>
+                            </button></td> --}}
                         </tr>
                         <script>
                             getDTB('DTB{{ $student["point"]["masv"] }}', '{{ $student["point"]["masv"] }}', '{{ $student["point"]["nambatdau"] }}', '{{ $student["point"]["namketthuc"] }}', '{{ $student["point"]["hocky"] }}') 

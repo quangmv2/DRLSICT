@@ -180,6 +180,10 @@ $(document).ready(function ($) {
             url : window.location.href,
             data : {
                 
+            },
+            json: true,
+            headers: {
+                Accept: 'applicaion/json'
             }
         })
         .then((response)=>{
@@ -295,12 +299,12 @@ jQuery(document).ready(function ($) {
           data : data
         })
         .then((response) => {
-          console.log(response)
+        //   console.log(response)
           alert(response.data.message)
           $('#form_profile :button').html('Cập nhật')
         })
         .catch((err) => {
-          console.log(err.response)
+        //   console.log(err.response)
           alert('Cập nhật thất bại')
           $('#form_profile :button').html('Cập nhật')
         })
@@ -313,7 +317,7 @@ function getRndInteger(min, max) {
 }
 function formatP() {  
     $("#idForm :input").each(function(){
-        console.log(isNaN(this.value) + " " + this.max)
+        // console.log(isNaN(this.value) + " " + this.max)
         this.required = true
         if (isNaN(this.value)) {
             $(this).val('')

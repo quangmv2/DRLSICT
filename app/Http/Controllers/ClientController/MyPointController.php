@@ -15,6 +15,7 @@ use App\DotXetDiem;
 use App\SchoolYear;
 use App\Point;
 use App\MyPoint;
+use App\Diem;
 
 class MyPointController extends ClientController
 {
@@ -73,16 +74,30 @@ class MyPointController extends ClientController
         if (empty($student)){
             return redirect()->route('getDot', ['id_dot' => $id_dot])->with('myErrors', "Sinh viên không tồn tại");
         }
+        try {
+            $client = new Client();
+            $namhoc = explode('-', $dot->nam_hoc);
+            $query = [
+                'masv' => $id_student,
+                'nambatdau' => (int) $namhoc[0],
+                'namketthuc' => (int) $namhoc[1],
+                'hocky' => $dot->hoc_ki
+            ];
+            $res = $client->request('GET', 'http://diemrenluyen.xyz/diem_sv', [ 
+                'query' => $query,
+            ]); 
+            $content = (object) $res->getBody();
+            $json = json_decode($content->getContents(), true);
+            $point_study = $json;
+            // Diem::where('id_student', $id_student)->where('id_dot_xet_diem', $id_dot)->update(["point"=>$point_study]);
+        } catch (\Throwable $th) {
+           $point_study = 0;
+        }
+        // $point_study = Diem::where('id_student', $id_student)->where('id_dot_xet_diem', $dot->id_dot_xet)->get();
+        // if (empty($point_study)) $point_study = 0;
+        // else $point_study = $point_study->first()->point;
 
-        // $client = new Client();
-        // $res = $client->request('GET', 'http://diemrenluyen.xyz/point/'.$id_student);
-        // // $res = $client->request('GET', 'http://localhost:3000/api/point/'.$id_student);
-        // $content = (object) $res->getBody();
-        // $json = json_decode($content->getContents(), true);
-
-        // $point_study = $json['point'];
-
-        $point_study = 0;
+        
         
         $my_point = MyPoint::where('id_dot', $id_dot)
         ->where('id_student', $id_student)
@@ -101,18 +116,19 @@ class MyPointController extends ClientController
                 "p2a2" => 0,
                 "p2b1" => 0,
                 "p2b2" => 0,
-                "p2b3" => 0,
                 "p3a1" => 0,
                 "p3a2" => 0,
                 "p3b1" => 0,
-                "p3b2" => 0,
-                "p3b3" => 0,
                 "p3c" => 0,
                 "p4a1" => 0,
                 "p4a2" => 0,
                 "p4a3" => 0,
                 "p4b" => 0,
                 "p4c" => 0,
+                "p5a" => 0,
+                "p5b" => 0,
+                "p5c" => 0,
+                "p5d" => 0,
                 "confirm" => 1,
             ];
             MyPoint::where('id_dot', $id_dot)
@@ -121,16 +137,28 @@ class MyPointController extends ClientController
              updateTotalMyPoint($my_point->id_my_point);
 
         }
+        $arr_update = [
+            "p1dd" => convertPointToPoint($point_study),
+        ];
+        MyPoint::where('id_dot', $id_dot)
+        ->where('id_student', $id_student)
+        ->update($arr_update);
+         updateTotalMyPoint($my_point->id_my_point);
+        Point::where('id_dot', $id_dot)
+         ->where('id_student', $id_student)
+         ->update($arr_update);
+          updateTotalMyPoint($my_point->id_my_point);
 
         $my_point = Point::where('id_dot', $id_dot)
         ->where('id_student', $id_student)
         ->get()->first();
+        
 
         $my_temp_point = MyPoint::where('id_dot', $id_dot)
         ->where('id_student', $id_student)
         ->get()->first();
 
-        return view('client.my_point.tu_danh_gia', ['my_point' => $my_point, 'my_temp_point' => $my_temp_point, 'dot' => $dot]);
+        return view('client.my_point.tu_danh_gia', ['my_point' => $my_point, 'my_temp_point' => $my_temp_point, 'dot' => $dot, 'point' => $point_study]);
     }
 
     function postDanhGia(PointRequest $request, $id_dot){
@@ -147,18 +175,19 @@ class MyPointController extends ClientController
             "p2a2" => $input['p2a2'],
             "p2b1" => $input['p2b1'],
             "p2b2" => $input['p2b2'],
-            "p2b3" => $input['p2b3'],
             "p3a1" => $input['p3a1'],
             "p3a2" => $input['p3a2'],
             "p3b1" => $input['p3b1'],
-            "p3b2" => $input['p3b2'],
-            "p3b3" => $input['p3b3'],
             "p3c" => $input['p3c'],
             "p4a1" => $input['p4a1'],
             "p4a2" => $input['p4a2'],
             "p4a3" => $input['p4a3'],
             "p4b" => $input['p4b'],
             "p4c" => $input['p4c'],
+            "p5a" => $input['p5a'],
+            "p5b" => $input['p5b'],
+            "p5c" => $input['p5c'],
+            "p5d" => $input['p5d'],
             "confirm" => 1,
         ];
 
@@ -179,6 +208,46 @@ class MyPointController extends ClientController
 
         return $res;
 
+    }
+
+    public function getPublicPoint(Request $request, $id_dot)
+    {
+
+        if ($id_dot == -1) {
+            $dot = DotXetDiem::join('dot_xet_diem_rela_class', 'dot_xet_diem_rela_class.id_dot', '=', 'dot_xet_diem.id_dot_xet')
+            ->where('id_class', $request->session()->get('account')->id_class)
+            ->where('nam_hoc', $request->input('nam_hoc'))
+            ->where('hoc_ki', $request->input('hoc_ki'))
+            ->get()->first();
+            if (empty($dot)) return abort('404');
+            return redirect()->route('getDot', ['id_dot'=>$dot->id_dot_xet]);
+        }
+
+        $students = Point::where('id_dot', $id_dot)
+        ->join('students', 'students.id_student', '=', 'points.id_student')
+        ->join('profiles', 'profiles.id_profile', '=', 'students.id_profile')
+        ->where('students.id_class', $request->session()->get('account')->id_class)
+        ->orderby('students.id_student')
+        ->select('*')
+        ->get();
+        $dot = DotXetDiem::where('id_dot_xet', $id_dot)->get()->first();
+        
+        if (empty($dot)) return abort('404');
+        foreach ($students as $key => $student) {
+        
+            $nam_hoc = explode('-', $dot->nam_hoc);
+            $student["point"] = [
+                'masv' => $student->id_student,
+                'nambatdau' => $nam_hoc[0],
+                'namketthuc' => $nam_hoc[1],
+                'hocky' => $dot->hoc_ki
+            ];
+            $student["my_point"] = MyPoint::where('id_dot', $student->id_dot)
+            ->where('id_student', $student->id_student)
+            ->get()->first()->total;
+        }
+        // return $students;
+        return view('client.my_point.list_sinh_vien_dot',["students" => $students, 'id_dot' => $id_dot, 'dot' => $dot]);
     }
 
 }

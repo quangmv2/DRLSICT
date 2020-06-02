@@ -103,67 +103,95 @@
                             <tr>
                                 <th style="width: 75%;"><p
                                     style="display: flex; justify-content: center; align-items: center; text-align: center"    
-                                >Nội dung đánh giá</p></th>
+                                >Nội dung và tiêu chí đánh giá</p></th>
                                 <th><p
                                     style="justify-content: center; align-items: center; text-align: center"    
-                                >Khung điểm</p></th>
-                                <th>Điểm do sinh viên tự đánh giá</th>
-                                <th>Điểm do tập thể lớp đánh giá</th>
+                                >Khung điểm tối đa (điểm)
+                                </p></th>
+                                <th>Điểm (do sinh viên tự đánh giá)</th>
+                                <th>Điểm (do tập thể lớp đánh giá)</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <th>1. ĐÁNH GIÁ VỀ Ý THỨC, THÁI ĐỘ VÀ KẾT QUẢ HỌC TẬP</th>
-                                <th style="text-align: center">30</th>
+                                <th>1. Đánh giá về ý thức tham gia học tập</th>
+                                <th style="text-align: center">20</th>
                                 <th></th>
                                 <th></th>
                             </tr>
                             <tr>
                                 <td>
-                                    a) Ý thức và thái độ trong học tập: Có đi học chuyên cần, đúng giờ, nghiêm túc trong giờ học; đủ điều kiện dự thi tất cả các học phần (Không đủ điều kiện dự thi 01 học phần bị trừ 02 điểm; không đủ điều kiện dự thi từ 02 học phần trở lên bị trừ hết số điểm còn lại của tiêu chí)
+                                    a) Ý thức và thái độ trong học tập
                                 </td>
                                 <td style="text-align: center">
-                                    10
+                                    04
                                 </td>
                                 <td style="text-align: center">{{ $my_temp_point->p1a }}</td>
                                 <td style="text-align: center">{{ $my_point->p1a }}</td>
                             </tr>
                             <tr>
                                 <td>
-                                    b) Ý thức và thái độ tham gia các hoạt động học tập, hoạt động ngoại khóa, hoạt động nghiên cứu khoa học;
+                                    - Có đi học chuyên cần, đúng giờ, nghiêm túc trong giờ học; đủ điều kiện dự thi tất cả các học phần<br/>
+                                    (Không đủ điều kiện dự thi 01 học phần bị trừ 02 điểm. Không đủ điều kiện dự thi từ 02 học phần trở lên bị trừ hết số điểm còn lại của tiêu chí)
                                 </td>
-                                <td style="text-align: center">08</td>
-                                <td></td>
-                                <td></td>
+                                <td style="text-align: center">
+                                    04
+                                </td>
+                                <td style="text-align: center">{{ $my_temp_point->p1a }}</td>
+                                <td style="text-align: center">{{ $my_point->p1a }}</td>
                             </tr>
                             <tr>
                                 <td>
-                                        -	Có đăng ký và hoàn thành đề tài nghiên cứu khoa học đúng tiến độ
+                                    b) Ý thức và thái độ tham gia các hoạt động học tập, hoạt động ngoại khóa, hoạt động nghiên cứu khoa học
                                 </td>
-                                <td style="text-align: center">03</td>
+                                <td style="text-align: center">04</td>
+                                <td style="text-align: center">{{ $my_temp_point->p1b1 + $my_temp_point->p1b2 }}</td>
+                                <td style="text-align: center">{{ $my_point->p1b1 + $my_point->p1b2 }}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    - Có đăng ký, thực hiện, báo cáo đề tài nghiên cứu khoa học đúng tiến độ hoặc có đăng ký, tham dự kỳ thi sinh viên giỏi các cấp
+                                </td>
+                                <td style="text-align: center">02</td>
                                 <td style="text-align: center">{{ $my_temp_point->p1b1 }}</td>
                                 <td style="text-align: center">{{ $my_point->p1b1 }}</td>
                             </tr>
                             <tr>
                                 <td>
-                                        -	Có ý thức và tham gia các câu lạc bộ học thuật, các hoạt động học thuật, hoạt động ngoại khoá.
+                                    - Có ý thức tham gia các câu lạc bộ học thuật, các hoạt động học thuật, hoạt động ngoại khoá
                                 </td>
-                                <td style="text-align: center">05</td>
+                                <td style="text-align: center">02</td>
                                 <td style="text-align: center">{{ $my_temp_point->p1b2 }}</td>
                                 <td style="text-align: center">{{ $my_point->p1b2 }}</td>
                             </tr>
                             <tr>
                                 <td>
-                                    c) Ý thức và thái độ tham gia các kỳ thi, cuộc thi: Không vi phạm quy chế thi
-                                        (Vi phạm 01 lần bị trừ 01 điểm, từ lần vi phạm thứ hai trở đi bị trừ hết số điểm còn lại của tiêu chí)
+                                    c. Ý thức và thái độ trong kỳ thi, kiểm tra đánh giá các học phần
                                 </td>
-                                <td style="text-align: center">04</td>
+                                <td style="text-align: center">06</td>
                                 <td style="text-align: center">{{ $my_temp_point->p1c }}</td>
                                 <td style="text-align: center">{{ $my_point->p1c }}</td>
                             </tr>
                             <tr>
                                 <td>
-                                        d) Tinh thần vượt khó, phấn đấu vươn lên trong học tập (Được tập thể lớp công nhận có tinh thần vượt khó, phấn đấu vươn lên trong học tập).
+                                    - Không vi phạm quy chế thi và kiểm tra <br/>
+                                    (Vi phạm 01 lần bị trừ 02 điểm, từ lần vi phạm thứ hai trở đi bị trừ hết số điểm còn lại của tiêu chí)                                    
+                                </td>
+                                <td style="text-align: center">06</td>
+                                <td style="text-align: center">{{ $my_temp_point->p1c }}</td>
+                                <td style="text-align: center">{{ $my_point->p1c }}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    d. Tinh thần vượt khó, phấn đấu vươn lên trong học tập 
+                                </td>
+                                <td style="text-align: center">02</td>
+                                <td style="text-align: center">{{ $my_temp_point->p1d }}</td>
+                                <td style="text-align: center">{{ $my_point->p1d }}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    - Được tập thể lớp công nhận có tinh thần vượt khó, phấn đấu vươn lên trong học tập
                                 </td>
                                 <td style="text-align: center">02</td>
                                 <td style="text-align: center">{{ $my_temp_point->p1d }}</td>
@@ -173,41 +201,25 @@
                                 <td>
                                         đ) Kết quả học tập.
                                 </td>
-                                <td style="text-align: center">06</td>
+                                <td style="text-align: center">04</td>
                                 <td style="text-align: center">{{ $my_temp_point->p1dd }}</td>
                                 <td style="text-align: center" style="text-align: center" style="text-align: center" style="text-align: center">{{ $my_point->p1dd }}</td>
                             </tr>
                             <tr>
                                 <td>
-                                        -	Điểm TBCHK từ 3,6 đến 4,0
+                                        -	Điểm TBCHK từ 3,2 đến 4,0 
                                 </td>
-                                <td style="text-align: center">06</td>
-                                <td style="text-align: center" style="text-align: center" style="text-align: center">{{ $my_temp_point->p1dd>=3.6 ? 6 : '' }}</td>
-                                <td style="text-align: center">{{ $my_point->p1dd>=3.6 ? 6 : '' }}</td>
+                                <td style="text-align: center">04</td>
+                                <td style="text-align: center" style="text-align: center">{{  $my_point->p1dd==4 ? 4 : ''  }}</td>
+                                <td style="text-align: center">{{ $my_point->p1dd==4 ? 4 : '' }}</td>
                             </tr>
                             <tr>
                                 <td>
-                                        -	Điểm TBCHK từ 3,2 đến 3,59 
-                                </td>
-                                <td style="text-align: center">05</td>
-                                <td style="text-align: center" style="text-align: center">{{ $my_temp_point->p1dd>=3.2 && $my_temp_point->p1dd <= 3.59 ? 5 : '' }}</td>
-                                <td style="text-align: center">{{ $my_point->p1dd>=3.2 && $my_point->p1dd <= 3.59 ? 5 : '' }}</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                        -	Điểm TBCHK 2,5 đến 3,19  
-                                </td>
-                                <td style="text-align: center">03</td>
-                                <td style="text-align: center">{{ $my_temp_point->p1dd>=2.5 && $my_temp_point->p1dd <= 3.19 ? 3 : '' }}</td>
-                                <td style="text-align: center">{{ $my_point->p1dd>=2.5 && $my_point->p1dd <= 3.19 ? 3 : '' }}</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                        -	Điểm TBCHK 2,0 đến 2,49  
+                                        -	Điểm TBCHK 2,0 đến 3,2  
                                 </td>
                                 <td style="text-align: center">02</td>
-                                <td style="text-align: center">{{ $my_temp_point->p1dd>=2 && $my_temp_point->p1dd <= 2.49 ? 2 : '' }}</td>
-                                <td style="text-align: center">{{ $my_point->p1dd>=2 && $my_point->p1dd <= 2.49 ? 2 : '' }}</td>
+                                <td style="text-align: center">{{ $my_point->p1dd==2 ? 2 : '' }}</td>
+                                <td style="text-align: center">{{ $my_point->p1dd==2 ? 2 : ''  }}</td>
                             </tr>
                             <tr>
                                 <td>

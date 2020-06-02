@@ -15,7 +15,7 @@
 
         <div class="col-sm-12" >
 
-            <h1>DANH SÁCH <small>Hoạt động</small> </h1>
+            <h1>DANH SÁCH <small>Đợt xét điểm</small> </h1>
             <button type="button" class="btn btn-success" id="btnDisplay" style="display: inline; float: right; margin-bottom: 10px;">Biểu đồ</button>
 
         </div>
@@ -43,6 +43,7 @@
                         <td>Xếp loại</td>
                         <td>Tự đánh giá</td>
                         <td>Tải về</td>
+                        <td>Cả lớp</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,6 +56,7 @@
                             <td> {{ danhGia($item->total) }} </td>
                             <td> <a href="{{ route('getMyDot', ['id_dot'=> $item->id_dot_xet]) }}"><i class="fas fa-notes-medical"></i></a> </td>
                             <td><a href="{{ route('downloadPointPDF', ['id_student' => session('account')->id_student, 'id_dot' => $item->id_dot_xet]) }}"><i class="fas fa-cloud-download-alt"></i></a>  </td>
+                            <td><a href="{{ route('public-diem', ['id_dot' => $item->id_dot_xet]) }}">Xem</a></td>
                         </tr>
                     @endforeach
                 </tbody>

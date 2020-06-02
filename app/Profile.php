@@ -19,4 +19,9 @@ class Profile extends Model
         return $this->belongsTo('App\Student', 'id_profile', 'id_profile');
     }
 
+    public function teacher()
+    {
+        return $this->belongsTo('App\Teacher', 'id_profile', 'id_profile');
+    }
+
 }

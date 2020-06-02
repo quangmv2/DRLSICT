@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon-32x32.png') }}">
-  <title>Bảng thống kê kết quả rèn luyện {{ $dot->id_class }} - Học kỳ: {{ hocKy($dot->hoc_ki) }} - Năm học: {{ $dot->nam_hoc }} </title>
+  <title>Bảng thống kê kết quả rèn luyện {{ $classs->id_class }} - Học kỳ: {{ hocKy($dot->hoc_ki) }} - Năm học: {{ $dot->nam_hoc }} </title>
 
   <!-- Custom fonts for this template-->
   
@@ -77,10 +77,10 @@
                         <td style="text-align: center; text-transform: uppercase; font-weight: bold">Độc lập - Tự do - Hạnh phúc</td>
                     </tr>
                     <tr>
-                        <td colspan="2" style="text-align: center"><h3><strong style="text-transform: uppercase;">BẢNG TỔNG HỢP KẾT QUẢ RÈN LUYỆN CỦA SINH VIÊN <br>HỌC KỲ: {{ hocKy($dot->hoc_ki) }} - NĂM HỌC: {{ $dot->nam_hoc }}</strong></h3></td>
+                        <td colspan="2" style="text-align: center"><h3><strong style="text-transform: uppercase;">BẢNG TỔNG HỢP KẾT QUẢ RÈN LUYỆN <br>HỌC KỲ: {{ hocKy($dot->hoc_ki) }} - NĂM HỌC: {{ $dot->nam_hoc }}</strong></h3></td>
                     </tr>
                     <tr>
-                        <td colspan="2" style="text-align: center">(Lớp: {{ $dot->id_class }} - Khóa học: {{ explode('-', $classs->start_study)[0]."-".explode('-', $classs->end_study)[0] }})</td>
+                        <td colspan="2" style="text-align: center">(Lớp: {{ $classs->id_class }} - Khóa học: {{ explode('-', $classs->start_study)[0]."-".explode('-', $classs->end_study)[0] }})</td>
                     </tr>
                 </table>
             </div>
@@ -135,7 +135,9 @@
             <div class="col-sm-10">
                 <p style="font-size: 15px">Trong đó:</p>
                 <div class="col-sm-1">
-
+                @php
+                    if ($count == 0) $count = 1;
+                @endphp
                 </div>
                 <div class="col-sm-11">
                     <table class="myTable" style=" width: 100%; 

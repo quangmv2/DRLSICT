@@ -70,7 +70,7 @@
         </div>
     </div>
      <!-- Load Facebook SDK for JavaScript -->
-    <div id="fb-root"></div>
+    {{-- <div id="fb-root"></div>
     <script>
         window.fbAsyncInit = function() {
         FB.init({
@@ -94,6 +94,6 @@
     theme_color="#fed014"
     logged_in_greeting="Hi! How can we help you?"
     logged_out_greeting="Hi! How can we help you?">
-    </div>
+    </div> --}}
 </body>
 </html>

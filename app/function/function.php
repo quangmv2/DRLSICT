@@ -115,18 +115,19 @@ function updateTotal($id_point)
     + $point->p2a2
     + $point->p2b1
     + $point->p2b2
-    + $point->p2b3
     + $point->p3a1
     + $point->p3a2
     + $point->p3b1
-    + $point->p3b2
-    + $point->p3b3
     + $point->p3c
     + $point->p4a1
     + $point->p4a2
     + $point->p4a3
     + $point->p4b
-    + $point->p4c;
+    + $point->p4c
+    + $point->p5a
+    + $point->p5b
+    + $point->p5c
+    + $point->p5d;
 
     Point::where('id_point', $id_point)->update(['total'=>$total]);
 }
@@ -145,28 +146,28 @@ function updateTotalMyPoint($id_point)
     + $point->p2a2
     + $point->p2b1
     + $point->p2b2
-    + $point->p2b3
     + $point->p3a1
     + $point->p3a2
     + $point->p3b1
-    + $point->p3b2
-    + $point->p3b3
     + $point->p3c
     + $point->p4a1
     + $point->p4a2
     + $point->p4a3
     + $point->p4b
-    + $point->p4c;
+    + $point->p4c
+    + $point->p5a
+    + $point->p5b
+    + $point->p5c
+    + $point->p5d;
 
     MyPoint::where('id_my_point', $id_point)->update(['total'=>$total]);
 }
 
 function convertPointToPoint($point){
 
-    if ($point >= 3.6) return 6;
-    if ($point >= 3.2) return 5;
-    if ($point >= 2.5) return 3;
-    if ($point >= 2) return 2;
+    if ($point >= 3.2) return 4;
+    if ($point >= 2.0) return 2;
+    if ($point >= 0) return 0;
     return 0;
 
 }

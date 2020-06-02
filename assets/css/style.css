@@ -75,3 +75,42 @@
 .pagination{
     float: left;
 }
+:root {
+    --with-nav-min: 6.5em !important;
+    --over-min: visible;
+    --with-nav-max: 0;
+    --over-max: hidden;
+}
+@media only screen and (max-width: 850px) {
+    .show-nav {
+        width: 0 !important;
+        overflow: hidden;
+    }
+    .nav-custom {
+        width: 6.5em !important;
+        overflow: visible;
+    }
+    .profile {
+        display: none;
+    }
+}
+@media only screen and (min-width: 850px) {
+    .show-nav {
+        width: 14em;
+    }
+    .nav-custom {
+        width: 0 !important;
+        overflow: hidden;
+    }
+}
+@media only screen and (max-width: 750px) {
+    .table {
+        display: block;
+        overflow-x: scroll;
+    }
+}
+
+.hidden-nav {
+    width: 0 !important;
+    overflow: hidden;
+}

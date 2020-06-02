@@ -1,4 +1,4 @@
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion show-nav" id="accordionSidebar">
 
   <!-- Sidebar - Brand -->
   <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
@@ -10,7 +10,7 @@
   <style>
 
   </style>
-  <div class="row">
+  <div class="row profile">
     <div class="col-sm-3" style="padding: 0;
     padding-left: 5%;
     margin: auto;">
@@ -60,12 +60,12 @@
   <hr class="sidebar-divider">
   
   @if (Auth::check() && Auth::user()->profile->student->id_position != 6)
-    <li class="nav-item" >
+    {{-- <li class="nav-item" >
       <a class="nav-link collapsed" href="{{ route('attendanceList') }}">
         <i class="fas fa-fw fa-cog"></i>
         <span>Điểm danh</span>
       </a>
-    </li>
+    </li> --}}
     <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse">
         <i class="fas fa-fw fa-cog"></i>
@@ -73,6 +73,7 @@
       </a>
       <div id="collapse1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
+          <a class="collapse-item" href="{{ route('attendanceList') }}">Điểm danh hoạt động</a>
           <a class="collapse-item" href="{{ route('actionList') }}">Danh sách hoạt động</a>
           <a class="collapse-item" href="{{ route('addAction') }}">Thêm hoạt động</a>
         </div>
@@ -89,13 +90,30 @@
         </div>
       </div>
     </li>
-      
+    <hr class="sidebar-divider d-none d-md-block" > 
   @endif
-  <hr class="sidebar-divider d-none d-md-block">
-
+  
+  <li class="nav-item hrefLink">
+    <a class="nav-link collapsed" href="https://facebook.com/vanquang312" target="_blank">
+      <i class="fas fa-fw fa-cog"></i>
+      <span>Liên hệ khi có sự cố</span>
+    </a>
+  </li>
+  <hr class="sidebar-divider d-none d-md-block" id="bottomMenu">
   <!-- Sidebar Toggler (Sidebar) -->
-  <div class="text-center d-none d-md-inline">
-    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+  <div class="text-center d-none d-md-inline" id="">
+    <button class="rounded-circle border-0" style="display: none"></button>
   </div>
-
+  <script>
+    let bottomMenu = document.getElementById('bottomMenu');
+    let menu = document.getElementById('accordionSidebar');
+    document.addEventListener('scroll', function(e) {
+      let list = menu.classList.value
+      if (window.scrollY - 10 >= bottomMenu.offsetTop) {
+        menu.style.display = 'none'
+      } else {
+        menu.style.display = 'block'
+      }
+    });
+  </script>
 </ul>

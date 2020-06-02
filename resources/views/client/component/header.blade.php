@@ -1,7 +1,13 @@
+<script>
+  function toggleNav() {
+    const nav = document.getElementById('accordionSidebar');
+    nav.classList.toggle('nav-custom');
+  }
+</script>
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow ">
 
-    <div class="text-center d-none d-md-inline">
-        <i class="fa fa-bars" id="sidebarToggle" style="cursor: pointer"></i>
+    <div class="">
+        <i class="fa fa-bars" id="" onclick="toggleNav()"style="cursor: pointer"></i>
       </div>
 
   <!-- Topbar Navbar -->

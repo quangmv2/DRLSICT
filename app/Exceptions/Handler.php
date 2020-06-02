@@ -46,8 +46,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        return parent::render($request, $exception);
+        $str = $request->header('accept');
+        $arr = explode(',', $str);
+        if (isset($arr[0]) && $arr[0] == "application/json") return parent::render($request, $exception);
+        return response()->view('errors.404');
         if ($exception instanceof CustomException) {
-            return response()->view('errors.custom');
+            // return response()->view('errors.custom');
             switch ($exception->getStatusCode()) {
                 // not found
                 case '404':
